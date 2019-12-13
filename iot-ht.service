@@ -1,0 +1,16 @@
+#
+# service for humidity/temparature sensor
+[Unit]
+Description=Humidity-Temparature Service
+After=network.target
+
+
+[Service]
+User=root
+PIDFile=/run/humtemp.pid
+ExecStart=/usr/bin/python /home/avinash/iot/get_humidity_temparature.py
+ExecStop=-/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /run/humtemp.pid
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
